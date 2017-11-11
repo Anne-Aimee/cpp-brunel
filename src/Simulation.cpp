@@ -17,6 +17,7 @@ using namespace std;
 Simulation::Simulation(double WEIGHT_VEXTVTHR_,double WEIGHT_JIJE_){
 	WEIGHT_JIJE= WEIGHT_JIJE_;
 	assert(WEIGHT_JIJE>0);
+	JI=-WEIGHT_JIJE*JE;	
 	WEIGHT_VEXTVTHR=WEIGHT_VEXTVTHR_;
 	assert(WEIGHT_VEXTVTHR>0);
 	for(unsigned int i(0);i<neurons.size();++i){
@@ -39,12 +40,11 @@ void Simulation::simule(double t_stop) {
 		for(unsigned int i(0);i<neurons.size();++i){
 			neurons[i]->spike=neurons[i]->update_state(1);
 			if (neurons[i]->spike) {
-				for (auto target : neurons[i]->targets){
+				for (auto& target : neurons[i]->targets){
 					target->receive(globalclock+(neurons[i]->delaystep),neurons[i]->J);
 				}
 			}
 		}
-		cerr<<"simulation end of time : "<<globalclock<<endl;
 		++globalclock;
 	}
 }

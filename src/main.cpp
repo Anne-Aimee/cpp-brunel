@@ -15,7 +15,35 @@ int set_sim_duration(){
 }
 
 
-//Useful to create other graphs (chosen by the user)
+
+void simgraph(int t_sim,int graphid=3, double param1=2,double param2=5){
+	cerr<<"Graph "<<graphid<<endl;
+	Simulation sim(param1,param2);
+	cerr<<"creation ok"<<endl;
+	sim.simule(t_sim);
+	cerr<<"simulation ok"<<endl;
+	sim.save("graphfile.txt");
+	system("python ../src/pyscript.py");
+}
+
+void choose_graph(int t_sim){
+	int g(0);
+	while (g<=0 or g>4){
+		cout <<"Which graph do you want to see (choose 1, 2, 3 or 4) ? "<<flush;
+		cin>>g;
+	}
+	switch(g){
+	case 1 : simgraph(t_sim,1,2,3);
+			break;
+	case 2 : simgraph(t_sim,2,4);
+			break;
+	case 3 : simgraph(t_sim);
+			break;
+	case 4 : simgraph(t_sim,4,0.9,4.5) ;
+	}	
+}
+
+//May be useful to create other graphs (chosen by the user)
 /*double set_sim_g(){
 	double g(0.0);
 	while(g<=0){
@@ -36,40 +64,9 @@ double set_sim_VextVthr(){
 
 int main(){
 	
-	int t_sim(0);
+    int t_sim(0);
 	t_sim=set_sim_duration();
-	cerr<<"Graph 1"<<endl;
-	Simulation sim1(2,3);
-	cerr<<"creation ok"<<endl;
-	sim1.simule(t_sim);
-	cerr<<"simulation ok"<<endl;
-	sim1.save("graphfile.txt");
-	system("python ../src/pyscript.py");
-	
-	cerr<<"Graph 2"<<endl;
-	Simulation sim2(4,6);
-	cerr<<"creation ok"<<endl;
-	sim2.simule(t_sim);
-	cerr<<"simulation ok"<<endl;
-	sim2.save("graphfile.txt");
-	system("python ../src/pyscript.py");
-	
-	cerr<<"Graph 3"<<endl;
-	Simulation sim3;
-	cerr<<"creation ok"<<endl;
-	sim3.simule(t_sim);
-	cerr<<"simulation ok"<<endl;
-	sim3.save("graphfile.txt");
-	system("python ../src/pyscript.py");
-	
-	cerr<<"Graph 4"<<endl;
-	Simulation sim4(0.9,4.5);
-	cerr<<"creation ok"<<endl;
-	sim4.simule(t_sim);
-	cerr<<"simulation ok"<<endl;
-	sim4.save("graphfile.txt");
-	system("python ../src/pyscript.py");
-	
+	choose_graph(t_sim);
 	return 0;
 }
 

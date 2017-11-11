@@ -26,9 +26,9 @@ class Simulation{
 	const unsigned int CE =1000;				//!<amount of excitatory neurons linked to each neuron
 	const unsigned int CI=250 ;					//!<amount of inhibitory neurons linked to each neuron
 	const double JE =0.1; 						//!<current given to neighbours when excitatory neuron spikes
-	const double JI=-JE*WEIGHT_JIJE;			//!<current given to neighbours when inhibitory neuron spikes
 	double WEIGHT_JIJE;							//!< weight between currents from inhibitory and excitatory (weight = -JI/JE)
 	double WEIGHT_VEXTVTHR;						//!< weight between potential from external neurons and threshold potential
+	double JI;									//!<current given to neighbours when inhibitory neuron spikes
 	//===================//
 	
 	
